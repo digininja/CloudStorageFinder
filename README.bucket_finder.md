@@ -2,7 +2,9 @@
 
 Copyright(c) 2018, Robin Wood <robin@digi.ninja>
 
-This project goes alongside my blog post [What's In Amazon's Buckets?](https://digi.ninja/blog/whats_in_amazons_buckets.php), read through that for more information on what is going on behind the scenes.
+This project goes alongside my blog post "
+[What's In Amazon's Buckets?](https://digi.ninja/blog/whats_in_amazons_buckets.php)",
+read through that for more information on what is going on behind the scenes.
 
 This is a fairly simple tool to run, all it requires is a wordlist and it will
 go off and check each word to see if that bucket name exists in the Amazon's
@@ -65,4 +67,4 @@ parameter:
 ```
 
 ## Licence
-This project released under the GNU GENERAL PUBLIC LICENSE Version 3
+This project released under the GNU GENERAL PUBLIC LICENSE Version 3.
