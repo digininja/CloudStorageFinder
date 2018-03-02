@@ -10,10 +10,10 @@ https://public.me.com/<account name>
 
 This tool is a modification of Bucket Finder to run through Mobile Me accounts.
 
-I've also written up the research and results in a couple of blog articles. 
+I've also written up the research and results in a couple of blog posts:
 
-http://www.digininja.org/blog/mobile_me_madness.php
-http://www.digininja.org/blog/analysing_mobile_me.php
+* [Mobile Me Madness](http://www.digininja.org/blog/mobile_me_madness.php)
+* [Analysing Mobile Me](http://www.digininja.org/blog/analysing_mobile_me.php)
 
 ## Version
 1.0 - Release
