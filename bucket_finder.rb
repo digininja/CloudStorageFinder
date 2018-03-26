@@ -55,7 +55,7 @@ end
 
 # Display the usage
 def usage
-	puts"bucket_finder 1.0 Robin Wood (robin@digi.ninja) (https://digi.ninja)
+	puts"bucket_finder 1.1 Robin Wood (robin@digi.ninja) (https://digi.ninja)
 
 Usage: bucket_finder [OPTION] ... wordlist
 	--help, -h: show help
