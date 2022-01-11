@@ -113,7 +113,7 @@ def parse_results doc, bucket_name, host, download, depth = 0
 				dir = ''
 			end
 			filename = ele.elements['Key'].text
-			url = protocol + host + '/' + dir + URI.escape(filename)
+			url = protocol + host + '/' + dir + filename
 
 			response = nil
 			parsed_url = URI.parse(url)
