@@ -67,6 +67,7 @@ Usage: bucket_finder [OPTION] ... wordlist
 					nc - Northern California
 					si - Singapore
 					to - Tokyo
+                                        gov - US Gov Cloud
 	-v: verbose
 
 	wordlist: the wordlist to use
