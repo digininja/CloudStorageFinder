@@ -67,6 +67,7 @@ Usage: bucket_finder [OPTION] ... wordlist
 					nc - Northern California
 					si - Singapore
 					to - Tokyo
+                                        gov - US Gov Cloud
 	-v: verbose
 
 	wordlist: the wordlist to use
@@ -262,6 +263,8 @@ case region
 		host = ('http://s3-ap-southeast-1.amazonaws.com')
 	when "to"
 		host = ('http://s3-ap-northeast-1.amazonaws.com')
+        when "gov"
+                host = ('http://s3-us-gov-west-1.amazonaws.com')
 	else
 		puts "Unknown region specified"
 		puts
