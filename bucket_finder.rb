@@ -45,7 +45,7 @@ module URI
   class << self
 
     def parse_with_safety(uri)
-      parse_without_safety uri.gsub('[', '%5B').gsub(']', '%5D')
+      parse_without_safety uri.gsub('[', '%5B').gsub(']', '%5D').gsub(" ", '%20')
     end
 
     alias parse_without_safety parse
