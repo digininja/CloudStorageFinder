@@ -121,7 +121,7 @@ def parse_results doc, space_name, host, download, depth = 0
 			if download and filename != '' and filename[-1].chr != '/'
 				fs_dir = space_name + File.dirname(URI.parse(url).path)
 
-				if !File.exists? fs_dir
+				if !File.exist? fs_dir
 					puts "Making directory #{fs_dir}" if @verbose
 					FileUtils.mkdir_p fs_dir
 				end
@@ -282,7 +282,7 @@ case region
 		usage
 end
 
-if !File.exists? filename
+if !File.exist? filename
 	puts "Wordlist file doesn't exist"
 	puts
 	usage

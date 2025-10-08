@@ -254,7 +254,7 @@ end
 
 names_filename = ARGV.shift
 
-if !File.exists? names_filename
+if !File.exist? names_filename
 	puts "Names file doesn't exist"
 	puts
 	usage
@@ -263,7 +263,7 @@ end
 
 folders_filename = ARGV.shift
 
-if !File.exists? folders_filename
+if !File.exist? folders_filename
 	puts "Folders file doesn't exist"
 	puts
 	usage

@@ -120,7 +120,7 @@ def parse_results doc, bucket_name, host, download, depth = 0
 				if depth > 0
 					fs_dir = bucket_name + '/' + fs_dir
 				end
-				if !File.exists? fs_dir
+				if !File.exist? fs_dir
 					FileUtils.mkdir_p fs_dir
 				end
 
@@ -235,7 +235,7 @@ end
 
 filename = ARGV.shift
 
-if !File.exists? filename
+if !File.exist? filename
 	puts "Wordlist file doesn't exist"
 	puts
 	usage
